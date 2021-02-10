@@ -1,11 +1,37 @@
 import React from 'react';
-import { SafeAreaView, Text } from 'react-native';
+import { ImageBackground } from 'react-native';
+import CustomButton from '@/components/Button';
+import { useNavigation } from '@react-navigation/native';
+import backgroundImage from '../../assets/bg.png';
+import pokemonLogo from '../../assets/pokemon-logo.png';
+import finderImage from '../../assets/finder.png';
+import pikachuImage from '../../assets/pikachu.png';
+import { ButtonContainer, Container, Logo, Finder, Pikachu } from './styles';
 
 const Welcome: React.FC = () => {
+	const navigation = useNavigation();
 	return (
-		<SafeAreaView style={{ flex: 1 }}>
-			<Text>Welcome</Text>
-		</SafeAreaView>
+		<ImageBackground
+			source={backgroundImage}
+			resizeMode="cover"
+			style={{ flex: 1 }}
+		>
+			<Container>
+				<Logo source={pokemonLogo} />
+				<Finder source={finderImage} />
+				<ButtonContainer>
+					<CustomButton
+						title="Let's Go!"
+						fontWeight="strong"
+						action={() => navigation.navigate('SignUp')}
+					/>
+				</ButtonContainer>
+				<Pikachu
+					source={pikachuImage}
+					style={{ position: 'absolute', bottom: 0, right: 0 }}
+				/>
+			</Container>
+		</ImageBackground>
 	);
 };
 

@@ -6,9 +6,7 @@ import AppRoutes from '@/routes';
 const App: React.FC = () => {
 	return (
 		<NavigationContainer>
-			<SafeAreaView style={{ flex: 1 }}>
-				<AppRoutes />
-			</SafeAreaView>
+			<AppRoutes />
 		</NavigationContainer>
 	);
 };

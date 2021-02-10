@@ -1,6 +1,5 @@
 import React from 'react';
-import { Text } from 'react-native';
-import { Container } from './styles';
+import { Container, NormalTitle, StrongTitle } from './styles';
 
 type FontWeight = 'normal' | 'strong';
 
@@ -22,7 +21,11 @@ const CustomButton: React.FC<ButtonProps> = ({
 }) => {
 	return (
 		<Container style={style} onPress={() => action()}>
-			<Text>{title}</Text>
+			{fontWeight === 'normal' ? (
+				<NormalTitle>{title}</NormalTitle>
+			) : (
+				<StrongTitle>{title}</StrongTitle>
+			)}
 		</Container>
 	);
 };
