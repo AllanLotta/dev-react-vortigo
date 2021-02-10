@@ -10,11 +10,4 @@ const api = axios.create({
 	},
 });
 
-export const getHeaders = (token: string) => ({
-	Authorization: `Bearer  ${token}`,
-	'Content-Type': 'application/json;charset=utf-8',
-	charset: 'utf-8',
-	'Cache-Control': 'no-cache',
-});
-
 export default api;

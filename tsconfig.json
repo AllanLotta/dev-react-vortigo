@@ -40,17 +40,6 @@
     "baseUrl": "./",                          /* Base directory to resolve non-absolute module names. */
     "paths": {
 			"@/*": ["src/*"],
-			"@shared/*": ["src/shared/*"],
-			"@contacts/*": ["src/modules/contacts/*"],
-			"@creator/*": ["src/modules/creator/*"],
-			"@metrics/*": ["src/modules/metrics/*"],
-			"@scanner/*": ["src/modules/scanner/*"],
-			"@auth/*": ["src/modules/auth/*"],
-			"@colors": ["src/shared/styles/colors.ts"],
-			"@fonts": ["src/shared/styles/fonts.ts"],
-			"@api": ["src/shared/services/api.ts"],
-			"@translate": ["src/shared/services/Translate/Translate.tsx"],
-			"@lang": ["src/shared/hooks/lang.tsx"]
 		},
 		// "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
     // "typeRoots": [],                       /* List of folders to include type definitions from. */
