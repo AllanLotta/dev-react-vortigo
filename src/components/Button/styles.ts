@@ -14,7 +14,7 @@ export const Container = styled.TouchableOpacity`
 export const NormalTitle = styled.Text`
 	color: ${colors.Subtitle};
 	font-size: 16px;
-	color: ${colors.Light};
+	color: ${colors.LightText};
 `;
 export const StrongTitle = styled.Text`
 	color: ${colors.Subtitle};

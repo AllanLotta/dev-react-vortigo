@@ -9,7 +9,6 @@ interface ButtonProps {
 	fontWeight?: FontWeight;
 	disabled?: boolean;
 	color?: string;
-	style?: object;
 }
 
 const CustomButton: React.FC<ButtonProps> = ({
@@ -17,10 +16,9 @@ const CustomButton: React.FC<ButtonProps> = ({
 	action,
 	fontWeight = 'normal',
 	disabled = false,
-	style = {},
 }) => {
 	return (
-		<Container style={style} onPress={() => action()}>
+		<Container onPress={() => action()}>
 			{fontWeight === 'normal' ? (
 				<NormalTitle>{title}</NormalTitle>
 			) : (
