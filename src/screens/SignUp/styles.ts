@@ -27,6 +27,10 @@ export const Description = styled.Text`
 	margin-top: ${height * 0.15}px;
 `;
 
+export const InputContainer = styled.View`
+	margin-top: ${height * 0.1}px;
+`;
+
 export const NextButton = styled.TouchableOpacity`
 	position: absolute;
 	align-self: center;
