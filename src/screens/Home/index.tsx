@@ -1,8 +1,9 @@
-import { PokemonType } from '@/interfaces/index.js';
+import { Pokemon, PokemonType } from '@/interfaces/index.js';
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { DB } from '@/db';
+import arrowImage from '../../assets/arrow.png';
 
 import {
 	Container,
@@ -13,7 +14,13 @@ import {
 	CardType,
 	CardTypeImage,
 	CardTypeName,
-	List,
+	TypeList,
+	PokemonList,
+	ListHeader,
+	ListHeaderTitle,
+	OrderByNameButton,
+	OrderByNameText,
+	Arrow,
 	CardItem,
 	CardItemAvatar,
 	CardItemName,
@@ -28,6 +35,14 @@ const Home: React.FC = () => {
 			</CardType>
 		);
 	};
+	const renderPokemonItem = (item: Pokemon) => {
+		return (
+			<CardItem key={Math.random().toString(36).substring(7)}>
+				<CardItemAvatar source={{ uri: item.thumbnailImage }} />
+				<CardItemName>{item.name}</CardItemName>
+			</CardItem>
+		);
+	};
 	return (
 		<Container>
 			<Header>
@@ -36,13 +51,31 @@ const Home: React.FC = () => {
 					<Icon name="search" size={25} color="white" />
 				</HeaderSearchButton>
 			</Header>
-			<List
-				horizontal
-				showsHorizontalScrollIndicator={false}
-				keyExtractor={item => item.name}
-				data={DB.types}
-				renderItem={({ item }) => renderTypeItem(item)}
-			/>
+			<View>
+				<TypeList
+					horizontal
+					showsHorizontalScrollIndicator={false}
+					keyExtractor={item => item.name}
+					data={DB.types}
+					renderItem={({ item }) => renderTypeItem(item)}
+				/>
+			</View>
+			<View>
+				<ListHeader>
+					<ListHeaderTitle>Pokemons</ListHeaderTitle>
+					<OrderByNameButton>
+						<OrderByNameText>Nome</OrderByNameText>
+						<Arrow source={arrowImage} />
+					</OrderByNameButton>
+				</ListHeader>
+				<PokemonList
+					showsVerticalScrollIndicator={false}
+					data={DB.pokemons}
+					keyExtractor={item => Math.random().toString(36).substring(7)}
+					renderItem={({ item }) => renderPokemonItem(item)}
+				/>
+			</View>
+			{/*  */}
 
 			<Content />
 		</Container>

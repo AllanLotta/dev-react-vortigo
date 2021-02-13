@@ -46,12 +46,56 @@ export const CardTypeName = styled.Text`
 	text-transform: capitalize;
 `;
 
-export const List = styled.FlatList`
+export const TypeListContainer = styled.View``;
+
+export const TypeList = styled.FlatList`
 	flex-grow: 0;
 `;
 
-export const CardItem = styled.TouchableOpacity``;
+export const PokemonListContainer = styled.View``;
 
-export const CardItemAvatar = styled.Image``;
+export const ListHeader = styled.View`
+	flex-direction: row;
+	justify-content: space-between;
+	border-bottom-width: 1px;
+	border-bottom-color: #d7d7d7;
+	padding: 20px;
+`;
 
-export const CardItemName = styled.Text``;
+export const ListHeaderTitle = styled.Text`
+	font-size: ${RFValue(18)}px;
+	color: ${colors.Subtitle};
+`;
+
+export const OrderByNameButton = styled.TouchableOpacity`
+	flex-direction: row;
+`;
+
+export const OrderByNameText = styled.Text`
+	font-size: ${RFValue(18)}px;
+	color: ${colors.Subtitle};
+`;
+
+export const Arrow = styled.Image`
+	margin-left: 10px;
+`;
+
+export const PokemonList = styled.FlatList``;
+
+export const CardItem = styled.TouchableOpacity`
+	flex-direction: row;
+	align-items: center;
+	border-bottom-width: 1px;
+	border-bottom-color: #d7d7d7;
+	padding: 20px;
+`;
+
+export const CardItemAvatar = styled.Image`
+	width: 50px;
+	height: 50px;
+`;
+
+export const CardItemName = styled.Text`
+	margin-left: 10px;
+	font-size: ${RFValue(16)}px;
+`;
