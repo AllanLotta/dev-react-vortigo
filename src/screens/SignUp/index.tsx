@@ -9,6 +9,7 @@ import CustomButton from '@/components/Button';
 import { useNavigation } from '@react-navigation/native';
 import { PokemonType } from '@/interfaces';
 import { DB } from '@/db';
+import { useApp } from '@/hooks';
 import backgroundImage from '../../assets/bg.png';
 import nextImage from '../../assets/next.png';
 import radioOn from '../../assets/radio-on.png';
@@ -39,9 +40,10 @@ export interface FormaData {
 const SignUp: React.FC = () => {
 	const formRef = useRef<FormHandles>(null);
 	const navigation = useNavigation();
+	const { selectedPokemonType, setSelectedPokemonType } = useApp();
 	const [currentStep, setCurrentStep] = useState<Step>('FillName');
 	const [modalVisible, setModalVisible] = useState<boolean>(false);
-	const [selectedPokemonType, setSelectedPokemonType] = useState<PokemonType>(
+	const [selectedType, setSelectedType] = useState<PokemonType>(
 		{} as PokemonType,
 	);
 
@@ -70,16 +72,20 @@ const SignUp: React.FC = () => {
 		},
 	};
 
+	const saveSelected = () => {
+		setSelectedPokemonType(selectedType);
+		setModalVisible(false);
+	};
+
 	const handleNameSubmit = (formData: FormData) => {
 		formRef.current?.setData({ name: '' });
 		setCurrentStep('FillPokemonType');
 	};
 
 	const renderListItem = (item: PokemonType) => {
-		const radioImage =
-			item.name === selectedPokemonType.name ? radioOn : radioOff;
+		const radioImage = item.name === selectedType.name ? radioOn : radioOff;
 		return (
-			<Card onPress={() => setSelectedPokemonType(item)}>
+			<Card onPress={() => setSelectedType(item)}>
 				<CardAvatar source={{ uri: item.thumbnailImage }} />
 				<CardName>{item.name}</CardName>
 				<CardRadio source={radioImage} />
@@ -128,7 +134,7 @@ const SignUp: React.FC = () => {
 					keyExtractor={item => item.name}
 				/>
 				<ConfirmButtonContainer>
-					<CustomButton title="Confirm" action={() => setModalVisible(false)} />
+					<CustomButton title="Confirm" action={() => saveSelected()} />
 				</ConfirmButtonContainer>
 			</CustomModal>
 		</ImageBackground>
