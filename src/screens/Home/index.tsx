@@ -1,8 +1,10 @@
 import { Pokemon, PokemonType } from '@/interfaces/index.js';
-import React from 'react';
+import React, { ReactComponentElement, ReactNode, useState } from 'react';
 import { Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { DB } from '@/db';
+import Search from '@/components/Search';
+import CustomHeader from '@/components/Header';
 import arrowImage from '../../assets/arrow.png';
 
 import {
@@ -24,9 +26,27 @@ import {
 	CardItem,
 	CardItemAvatar,
 	CardItemName,
+	PokemonListContainer,
+	TypeListContainer,
 } from './styles';
 
 const Home: React.FC = () => {
+	const [searchVisible, setSearchVisible] = useState<boolean>(false);
+
+	const renderHeader = (): ReactNode => {
+		const HeaderComponent = (
+			<View style={{ padding: 20 }}>
+				<HeaderTitle>Pokemon Finder</HeaderTitle>
+				<HeaderSearchButton onPress={() => setSearchVisible(true)}>
+					<Icon name="search" size={25} color="white" />
+				</HeaderSearchButton>
+			</View>
+		);
+		const SearchComponent = <Search close={() => setSearchVisible(false)} />;
+		if (searchVisible) return SearchComponent;
+		return HeaderComponent;
+	};
+
 	const renderTypeItem = (item: PokemonType) => {
 		return (
 			<CardType key={item.name}>
@@ -35,6 +55,7 @@ const Home: React.FC = () => {
 			</CardType>
 		);
 	};
+
 	const renderPokemonItem = (item: Pokemon) => {
 		return (
 			<CardItem key={Math.random().toString(36).substring(7)}>
@@ -43,15 +64,11 @@ const Home: React.FC = () => {
 			</CardItem>
 		);
 	};
+
 	return (
 		<Container>
-			<Header>
-				<HeaderTitle>Pokemon Finder</HeaderTitle>
-				<HeaderSearchButton>
-					<Icon name="search" size={25} color="white" />
-				</HeaderSearchButton>
-			</Header>
-			<View>
+			<CustomHeader title="Pokemon Finder" activeSearch />
+			<TypeListContainer>
 				<TypeList
 					horizontal
 					showsHorizontalScrollIndicator={false}
@@ -59,12 +76,12 @@ const Home: React.FC = () => {
 					data={DB.types}
 					renderItem={({ item }) => renderTypeItem(item)}
 				/>
-			</View>
-			<View>
+			</TypeListContainer>
+			<PokemonListContainer>
 				<ListHeader>
-					<ListHeaderTitle>Pokemons</ListHeaderTitle>
+					<ListHeaderTitle>Pokémon</ListHeaderTitle>
 					<OrderByNameButton>
-						<OrderByNameText>Nome</OrderByNameText>
+						<OrderByNameText>Name</OrderByNameText>
 						<Arrow source={arrowImage} />
 					</OrderByNameButton>
 				</ListHeader>
@@ -74,9 +91,7 @@ const Home: React.FC = () => {
 					keyExtractor={item => Math.random().toString(36).substring(7)}
 					renderItem={({ item }) => renderPokemonItem(item)}
 				/>
-			</View>
-			{/*  */}
-
+			</PokemonListContainer>
 			<Content />
 		</Container>
 	);
