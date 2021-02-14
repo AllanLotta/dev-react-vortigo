@@ -17,13 +17,10 @@ const CustomButton: React.FC<ButtonProps> = ({
 	fontWeight = 'normal',
 	disabled = false,
 }) => {
+	const Title = fontWeight === 'normal' ? NormalTitle : StrongTitle;
 	return (
 		<Container onPress={() => action()}>
-			{fontWeight === 'normal' ? (
-				<NormalTitle>{title}</NormalTitle>
-			) : (
-				<StrongTitle>{title}</StrongTitle>
-			)}
+			<Title>{title}</Title>
 		</Container>
 	);
 };
