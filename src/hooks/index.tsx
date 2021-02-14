@@ -22,12 +22,10 @@ const AppProvider: React.FC = ({ children }) => {
 
 	useEffect(() => {
 		if (selectedPokemonType.name) {
-			console.log('selectedType', selectedPokemonType.name);
 			const pokemonsByType = DB.pokemons.filter(item =>
 				item.type.includes(selectedPokemonType.name),
 			);
 			setPokemons(pokemonsByType);
-			console.log('pokemonsByType', pokemonsByType);
 		}
 	}, [selectedPokemonType]);
 
