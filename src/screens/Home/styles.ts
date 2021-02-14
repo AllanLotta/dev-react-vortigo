@@ -11,26 +11,6 @@ export const Content = styled.SafeAreaView`
 	flex: 1;
 `;
 
-export const Header = styled.View`
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	background-color: ${colors.Primary};
-	padding: 20px;
-	padding-top: ${getStatusBarHeight() + 20}px;
-`;
-
-export const HeaderTitle = styled.Text`
-	font-size: ${RFValue(22)}px;
-	color: ${colors.LightText};
-`;
-
-export const HeaderSearchButton = styled.TouchableOpacity`
-	position: absolute;
-	right: 20px;
-	bottom: 20px;
-`;
-
 export const CardType = styled.TouchableOpacity`
 	align-items: center;
 	padding: 20px;
@@ -59,7 +39,7 @@ export const ListHeader = styled.View`
 	justify-content: space-between;
 	border-bottom-width: 1px;
 	border-bottom-color: #d7d7d7;
-	padding: 20px;
+	padding: 20px 20px 10px 20px;
 `;
 
 export const ListHeaderTitle = styled.Text`
