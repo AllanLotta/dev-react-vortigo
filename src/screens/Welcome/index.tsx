@@ -26,10 +26,7 @@ const Welcome: React.FC = () => {
 						action={() => navigation.navigate('SignUp')}
 					/>
 				</ButtonContainer>
-				<Pikachu
-					source={pikachuImage}
-					style={{ position: 'absolute', bottom: 0, right: 0 }}
-				/>
+				<Pikachu source={pikachuImage} />
 			</Container>
 		</ImageBackground>
 	);

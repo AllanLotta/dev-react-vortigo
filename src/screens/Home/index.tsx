@@ -1,5 +1,5 @@
 import { Pokemon, PokemonType } from '@/interfaces/index.js';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DB } from '@/db';
 import CustomHeader from '@/components/Header';
 import { useApp } from '@/hooks';
