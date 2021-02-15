@@ -15,8 +15,6 @@ interface AppContextData {
 	setSelectedPokemonType: (data: PokemonType) => void;
 	pokemons: Pokemon[];
 	setPokemons: (data: Pokemon[]) => void;
-	searchResult: Pokemon[];
-	clearSearch: () => void;
 	searchQuery: string;
 	setSearchQuery: (data: string) => void;
 }
@@ -29,7 +27,6 @@ const AppProvider: React.FC = ({ children }) => {
 		name: 'normal',
 	} as PokemonType);
 	const [pokemons, setPokemons] = useState<Pokemon[]>([] as Pokemon[]);
-	const [searchResult, setSearchResult] = useState<Pokemon[]>([] as Pokemon[]);
 	const [searchQuery, setSearchQuery] = useState<string>('');
 
 	useEffect(() => {
@@ -41,24 +38,6 @@ const AppProvider: React.FC = ({ children }) => {
 		}
 	}, [selectedPokemonType]);
 
-	useEffect(() => {
-		search(searchQuery);
-	}, [searchQuery]);
-
-	const search = useCallback(
-		(query: string) => {
-			const result: Pokemon[] = pokemons.filter(item =>
-				item.name.includes(query),
-			);
-			setSearchResult(result);
-		},
-		[pokemons],
-	);
-
-	const clearSearch = useCallback(() => {
-		setSearchResult([] as Pokemon[]);
-	}, []);
-
 	return (
 		<AppContext.Provider
 			value={{
@@ -68,8 +47,6 @@ const AppProvider: React.FC = ({ children }) => {
 				setSelectedPokemonType,
 				pokemons,
 				setPokemons,
-				searchResult,
-				clearSearch,
 				searchQuery,
 				setSearchQuery,
 			}}

@@ -1,5 +1,5 @@
 import { Pokemon, PokemonType } from '@/interfaces/index.js';
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { DB } from '@/db';
 import CustomHeader from '@/components/Header';
 import { useApp } from '@/hooks';
@@ -26,13 +26,26 @@ import {
 } from './styles';
 
 const Home: React.FC = () => {
+	const [pokemonsData, setPokemonsData] = useState<Pokemon[]>([] as Pokemon[]);
+	const [orderByName, setOrderByName] = useState<boolean>(false);
 	const {
 		pokemons,
 		setSelectedPokemonType,
 		searchQuery,
-		searchResult,
 		setSearchQuery,
 	} = useApp();
+
+	useEffect(() => {
+		setOrderByName(false);
+		setPokemonsData(pokemons);
+	}, [pokemons]);
+
+	useEffect(() => {
+		const result: Pokemon[] = pokemons.filter(item =>
+			item.name.includes(searchQuery),
+		);
+		setPokemonsData(result);
+	}, [searchQuery]);
 
 	const handlePressType = (type: PokemonType) => {
 		setSelectedPokemonType(type);
@@ -61,8 +74,11 @@ const Home: React.FC = () => {
 	};
 
 	const getPokemonData = () => {
-		if (searchQuery.length === 0) return pokemons;
-		return searchResult;
+		if (orderByName) {
+			const result = pokemonsData.sort((a, b) => a.name.localeCompare(b.name));
+			return result;
+		}
+		return pokemonsData;
 	};
 
 	const keyExtractor = item => {
@@ -85,7 +101,9 @@ const Home: React.FC = () => {
 				<PokemonListContainer>
 					<ListHeader>
 						<ListHeaderTitle>Pokémon</ListHeaderTitle>
-						<OrderByNameButton>
+						<OrderByNameButton
+							onPress={() => setOrderByName(oldState => !oldState)}
+						>
 							<OrderByNameText>Name</OrderByNameText>
 							<Arrow source={arrowImage} />
 						</OrderByNameButton>
