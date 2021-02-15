@@ -1,6 +1,12 @@
 import { DB } from '@/db';
 import { Pokemon, PokemonType } from '@/interfaces';
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, {
+	createContext,
+	useState,
+	useContext,
+	useEffect,
+	useCallback,
+} from 'react';
 
 interface AppContextData {
 	userName: string;
@@ -9,16 +15,22 @@ interface AppContextData {
 	setSelectedPokemonType: (data: PokemonType) => void;
 	pokemons: Pokemon[];
 	setPokemons: (data: Pokemon[]) => void;
+	searchResult: Pokemon[];
+	clearSearch: () => void;
+	searchQuery: string;
+	setSearchQuery: (data: string) => void;
 }
 
 const AppContext = createContext<AppContextData>({} as AppContextData);
 
 const AppProvider: React.FC = ({ children }) => {
 	const [userName, setUserName] = useState<string>('');
-	const [selectedPokemonType, setSelectedPokemonType] = useState<PokemonType>(
-		{} as PokemonType,
-	);
+	const [selectedPokemonType, setSelectedPokemonType] = useState<PokemonType>({
+		name: 'normal',
+	} as PokemonType);
 	const [pokemons, setPokemons] = useState<Pokemon[]>([] as Pokemon[]);
+	const [searchResult, setSearchResult] = useState<Pokemon[]>([] as Pokemon[]);
+	const [searchQuery, setSearchQuery] = useState<string>('');
 
 	useEffect(() => {
 		if (selectedPokemonType.name) {
@@ -29,6 +41,24 @@ const AppProvider: React.FC = ({ children }) => {
 		}
 	}, [selectedPokemonType]);
 
+	useEffect(() => {
+		search(searchQuery);
+	}, [searchQuery]);
+
+	const search = useCallback(
+		(query: string) => {
+			const result: Pokemon[] = pokemons.filter(item =>
+				item.name.includes(query),
+			);
+			setSearchResult(result);
+		},
+		[pokemons],
+	);
+
+	const clearSearch = useCallback(() => {
+		setSearchResult([] as Pokemon[]);
+	}, []);
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -38,6 +68,10 @@ const AppProvider: React.FC = ({ children }) => {
 				setSelectedPokemonType,
 				pokemons,
 				setPokemons,
+				searchResult,
+				clearSearch,
+				searchQuery,
+				setSearchQuery,
 			}}
 		>
 			{children}
