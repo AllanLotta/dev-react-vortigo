@@ -32,7 +32,9 @@ export const TypeList = styled.FlatList`
 	flex-grow: 0;
 `;
 
-export const PokemonListContainer = styled.View``;
+export const PokemonListContainer = styled.View`
+	flex: 1;
+`;
 
 export const ListHeader = styled.View`
 	flex-direction: row;
@@ -60,7 +62,9 @@ export const Arrow = styled.Image`
 	margin-left: 10px;
 `;
 
-export const PokemonList = styled.FlatList``;
+export const PokemonList = styled.FlatList`
+	padding-bottom: 50px;
+`;
 
 export const CardItem = styled.TouchableOpacity`
 	flex-direction: row;

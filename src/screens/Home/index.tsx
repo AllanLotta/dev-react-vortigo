@@ -1,9 +1,6 @@
 import { Pokemon, PokemonType } from '@/interfaces/index.js';
-import React, { ReactComponentElement, ReactNode, useState } from 'react';
-import { Text, View } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import React from 'react';
 import { DB } from '@/db';
-import Search from '@/components/Search';
 import CustomHeader from '@/components/Header';
 import { useApp } from '@/hooks';
 import arrowImage from '../../assets/arrow.png';
@@ -29,54 +26,79 @@ import {
 } from './styles';
 
 const Home: React.FC = () => {
-	const { pokemons, setSelectedPokemonType } = useApp();
+	const {
+		pokemons,
+		setSelectedPokemonType,
+		searchQuery,
+		searchResult,
+		setSearchQuery,
+	} = useApp();
 
-	const renderTypeItem = (item: PokemonType) => {
+	const handlePressType = (type: PokemonType) => {
+		setSelectedPokemonType(type);
+		setSearchQuery('');
+	};
+
+	const renderTypeItem = (result: { item: PokemonType }) => {
 		return (
-			<CardType key={item.name} onPress={() => setSelectedPokemonType(item)}>
-				<CardTypeImage source={{ uri: item.thumbnailImage }} />
-				<CardTypeName>{item.name}</CardTypeName>
+			<CardType
+				key={result.item.name}
+				onPress={() => handlePressType(result.item)}
+			>
+				<CardTypeImage source={{ uri: result.item.thumbnailImage }} />
+				<CardTypeName>{result.item.name}</CardTypeName>
 			</CardType>
 		);
 	};
 
-	const renderPokemonItem = (item: Pokemon) => {
+	const renderPokemonItem = (result: { item: Pokemon }) => {
 		return (
 			<CardItem key={Math.random().toString(36).substring(7)}>
-				<CardItemAvatar source={{ uri: item.thumbnailImage }} />
-				<CardItemName>{item.name}</CardItemName>
+				<CardItemAvatar source={{ uri: result.item.thumbnailImage }} />
+				<CardItemName>{result.item.name}</CardItemName>
 			</CardItem>
 		);
+	};
+
+	const getPokemonData = () => {
+		if (searchQuery.length === 0) return pokemons;
+		return searchResult;
+	};
+
+	const keyExtractor = item => {
+		return item.name;
 	};
 
 	return (
 		<Container>
 			<CustomHeader title="Pokemon Finder" activeSearch />
-			<TypeListContainer>
-				<TypeList
-					horizontal
-					showsHorizontalScrollIndicator={false}
-					keyExtractor={item => item.name}
-					data={DB.types}
-					renderItem={({ item }) => renderTypeItem(item)}
-				/>
-			</TypeListContainer>
-			<PokemonListContainer>
-				<ListHeader>
-					<ListHeaderTitle>Pokémon</ListHeaderTitle>
-					<OrderByNameButton>
-						<OrderByNameText>Name</OrderByNameText>
-						<Arrow source={arrowImage} />
-					</OrderByNameButton>
-				</ListHeader>
-				<PokemonList
-					showsVerticalScrollIndicator={false}
-					data={pokemons}
-					keyExtractor={item => Math.random().toString(36).substring(7)}
-					renderItem={({ item }) => renderPokemonItem(item)}
-				/>
-			</PokemonListContainer>
-			<Content />
+			<Content>
+				<TypeListContainer>
+					<TypeList
+						horizontal
+						showsHorizontalScrollIndicator={false}
+						keyExtractor={keyExtractor}
+						data={DB.types}
+						renderItem={renderTypeItem}
+					/>
+				</TypeListContainer>
+				<PokemonListContainer>
+					<ListHeader>
+						<ListHeaderTitle>Pokémon</ListHeaderTitle>
+						<OrderByNameButton>
+							<OrderByNameText>Name</OrderByNameText>
+							<Arrow source={arrowImage} />
+						</OrderByNameButton>
+					</ListHeader>
+					<PokemonList
+						showsVerticalScrollIndicator={false}
+						data={getPokemonData()}
+						initialNumToRender={10}
+						keyExtractor={() => Math.random().toString(36).substring(7)} // exists pokemons with the same ID and Name
+						renderItem={renderPokemonItem}
+					/>
+				</PokemonListContainer>
+			</Content>
 		</Container>
 	);
 };

@@ -11,5 +11,7 @@ export const Container = styled.View`
 `;
 
 export const Input = styled.TextInput`
+	width: 80%;
 	font-size: ${RFValue(18)}px;
+	text-align: center;
 `;

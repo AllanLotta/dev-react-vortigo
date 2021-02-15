@@ -78,31 +78,6 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
 					</ArrowContainer>
 				)}
 			</Container>
-			{/* <TextInput
-				ref={inputElementRef}
-				mode="flat"
-				label={label}
-				style={[Styles.Input, inputStyle]}
-				placeholder="Enter placeholder"
-				error={!!error}
-				{...rest}
-				secureTextEntry={secureTextEntry}
-				onChangeText={value => {
-					inputValueRef.current.value = value;
-				}}
-				right={
-					showEyeIcon && (
-						<TextInput.Icon
-							name={secureTextEntry ? 'eye-outline' : 'eye-off-outline'} // where <Icon /> is any component from vector-icons or anything else
-							color={theme.colors.placeholder}
-							onPress={() => (onEyePress ? onEyePress(!secureTextEntry) : null)}
-						/>
-					)
-				}
-			/>
-			<HelperText type="error" visible={!!error}>
-				{error}
-			</HelperText> */}
 		</>
 	);
 };
