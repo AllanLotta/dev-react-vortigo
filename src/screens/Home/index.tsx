@@ -101,9 +101,7 @@ const Home: React.FC = () => {
 				<PokemonListContainer>
 					<ListHeader>
 						<ListHeaderTitle>Pokémon</ListHeaderTitle>
-						<OrderByNameButton
-							onPress={() => setOrderByName(oldState => !oldState)}
-						>
+						<OrderByNameButton onPress={() => setOrderByName(true)}>
 							<OrderByNameText>Name</OrderByNameText>
 							<Arrow source={arrowImage} />
 						</OrderByNameButton>
