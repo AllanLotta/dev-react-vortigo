@@ -45,13 +45,13 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>ClickCard wants to have access to your camera to upload photos to your card.</string>
+	<string>PokeApp wants to have access to your camera to upload photos to your card.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>ClickCard wants to have access to your photo gallery to upload to your card.</string>
+	<string>PokeApp wants to have access to your photo gallery to upload to your card.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>MaterialIcons.ttf</string>

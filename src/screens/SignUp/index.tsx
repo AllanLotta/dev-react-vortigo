@@ -40,7 +40,12 @@ export interface FormData {
 const SignUp: React.FC = () => {
 	const formRef = useRef<FormHandles>(null);
 	const navigation = useNavigation();
-	const { selectedPokemonType, setSelectedPokemonType, setUserName } = useApp();
+	const {
+		selectedPokemonType,
+		setSelectedPokemonType,
+		setUserName,
+		userName,
+	} = useApp();
 	const [currentStep, setCurrentStep] = useState<Step>('FillName');
 	const [modalVisible, setModalVisible] = useState<boolean>(false);
 	const [selectedType, setSelectedType] = useState<PokemonType>(
@@ -64,7 +69,7 @@ const SignUp: React.FC = () => {
 			action: () => formRef.current?.submitForm(),
 		},
 		FillPokemonType: {
-			title: 'Hello, {Your name}!',
+			title: `Hello, ${userName}!`,
 			description: '...now tell us which is your favorite Pokémon type',
 			showArrow: true,
 			inputName: 'type',
